@@ -24,7 +24,7 @@ The process of creating your own SSH keys varies depending on your platform. Cho
 
 ### WINDOWS
 
-1. Install git for windows. Download [Gitbash](https://github.com/git-for-windows/git/releases/download/v2.13.0.windows.1/Git-2.13.0-64-bit.exe) and install.
+1. Install git for windows. Download the latest release from [Gitbash](https://github.com/git-for-windows/git/releases) and install.
 
 2. Open Git-bash:
 

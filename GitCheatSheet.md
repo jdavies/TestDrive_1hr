@@ -1,6 +1,6 @@
 # Git Cheat Sheet
 
-Since I'm terrible at remembering these kinds of details, I created this cheatsheet to help remind me!
+Since I'm terrible at remembering these kinds of details, I created this cheat sheet to help remind me!
 
 ## Table of Contents
 
@@ -41,7 +41,7 @@ It's easier to do this using the Git capabilities of VSCode, but if you need to 
 Using the terminal, change into the project directory. Then:
 
 ```shell
-git push origin master:master
+git push origin master
 ```
 
 ## Labeling a Release
