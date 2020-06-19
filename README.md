@@ -15,6 +15,9 @@ The instructions for the 1 hour test drive video that you saw during the webinar
     - [Console Overview](#console-overview)
   - [Lab 3: Creating Compartments](#lab-3-creating-compartments)
     - [Compartments Overview](#compartments-overview)
+  - [Lab 4 - Creating a Virtual Cloud Network](#lab-4---creating-a-virtual-cloud-network)
+  - [Summary](#summary)
+  - [Lab 5 - Compute Instances](#lab-5---compute-instances)
 
 ## Overview
 
@@ -159,3 +162,51 @@ A compartment is a collection of cloud assets, like compute instances, load bala
 4. You have just created a compartment for all of your work in this Test Drive.
 
 [Top](#table-of-contents)
+
+## Lab 4 - Creating a Virtual Cloud Network
+
+A virtual cloud network (VCN) is a customizable and private network in Oracle Cloud Infrastructure. Just like a traditional data center network, the VCN provides you with complete control over your network environment. This includes assigning your own private IP address space, creating subnets, route tables, and configuring stateful firewalls. A single tenant can have multiple VCNs, thereby providing grouping and isolation of related resources. Oracle’s new 25Gb network infrastructure offers significantly more bandwidth and allows enterprises to cost effectively take full advantage of compute, storage, and database services.
+
+To create a VCN on Oracle Cloud Infrastructure:
+
+1. On the Oracle Cloud Infrastructure Console Home page, under the Quick Actions header, click on Set up a network with a wizard.
+
+    ![Setup a Network with a Wizard](images/setupVCN1.png)
+
+2. Select **VCN with Internet Connectivity**, and then click **Start Workflow**.
+
+    ![Start Workflow](images/setupVCN2.png)
+
+3. Complete the following fields:
+
+    | **Field**                     |                                       **Value**                                        |
+    | ----------------------------- | :------------------------------------------------------------------------------------: |
+    | VCN NAME                      |                                      OCI_HOL_VCN                                       |
+    | COMPARTMENT                   | Choose the ***Demo*** compartment you created in [Lab 3](#Lab-3-Creating-Compartments) |
+    | VCN CIDR BLOCK                |                                      10.0.0.0/16                                       |
+    | PUBLIC SUNBET CIDR BLOCK      |                                      10.0.2.0/24                                       |
+    | PRIVATE SUBNET CIDR BLOCK     |                                      10.0.1.0/24                                       |
+    | USE DNS HOSTNAMES IN THIS VCN |                                        Checked                                         |
+
+    Your screen should look similar to the following:
+
+    ![Create a VCN Configuration|Foobar](images/setupVCN3.png)
+
+4. Press the **Next** button at the bottom of the screen.
+
+5. Review your settings to be sure they are correct.
+    ![Review CV Configuration](images/setupVCN4.png)
+
+6. Press the **Create** button to create the VCN. I will take a moment to create the VCN and a progress screen will keep you apprised of the workflow.
+
+    ![Workflow](images/workflow.png)
+
+7. Once you see that the creation is complete (see previous screenshot), click on the **View Virtual Cloud Network** button.
+
+## Summary
+
+This VCN will contain all of the other assets that you will create during this set of labs. In real-world situations, you may well create multiple VCNs based on their need for access (which ports to open) and who can access them. Both of these concepts are covered in the next lab [Lab 5 - Compute Instances](##lab-5---compute-instances)
+
+[Top](#table-of-contents)
+
+## Lab 5 - Compute Instances
