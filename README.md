@@ -16,10 +16,12 @@ The instructions for the 1 hour test drive video that you saw during the webinar
   - [Lab 3: Creating Compartments](#lab-3-creating-compartments)
     - [Compartments Overview](#compartments-overview)
   - [Lab 4 - Creating a Virtual Cloud Network](#lab-4---creating-a-virtual-cloud-network)
-  - [Summary](#summary)
+    - [Summary](#summary)
   - [Lab 5 - Compute Instances](#lab-5---compute-instances)
     - [Troubleshooting](#troubleshooting)
   - [Lab 6 - Custom Images](#lab-6---custom-images)
+  - [Lab 7 - Using Custom Images](#lab-7---using-custom-images)
+  - [Lab 8 - Creating a Load Balancer](#lab-8---creating-a-load-balancer)
 
 ## Overview
 
@@ -205,7 +207,7 @@ To create a VCN on Oracle Cloud Infrastructure:
 
 7. Once you see that the creation is complete (see previous screenshot), click on the **View Virtual Cloud Network** button.
 
-## Summary
+### Summary
 
 This VCN will contain all of the other assets that you will create during this set of labs. In real-world situations, you may well create multiple VCNs based on their need for access (which ports to open) and who can access them. Both of these concepts are covered in the next lab [Lab 5 - Compute Instances](##lab-5---compute-instances)
 
@@ -234,7 +236,7 @@ For more details on compute instances, please refer to the official [Oracle Comp
 
     ***NOTE:*** *You need a public IP address so that you can SSH into the running instance later in this lab.*
 
-4. Scroll down to the SSH area of the page. Choose the *id_rsa.pub* SSH key that you created earlier in this lab. Press the *Create* button to create your instance.
+4. Scroll down to the SSH area of the page. Choose the *oci_testdrive.pub* SSH key that you created earlier in this lab. Press the *Create* button to create your instance.
 
     Launching an instance is simple and intuitive with few options to select. The provisioning of the compute instance will complete in less than a minute and the instance state will change from provisioning to running.
 
@@ -339,3 +341,55 @@ If you are unable to see the webserver on your browser, possible scenarios inclu
 ## Lab 6 - Custom Images
 
 Well done! So far you have 1 single running web server, but of course, in a production environment you're likely to have multiple copies of that server running to handle the traffic. Can you imagine having to repeat those steps for dozens or even hundreds of web servers? That would be madness! The answer is to create a custom image of our compute instance and use it as a template to create additional web server instances, configured in the exact same way, quickly and easily.
+
+1. Using the main menu, navigate to the Compute -> Instances menu.
+2. When you see your ***Web-Server*** instance in the lit, click on it to view its details.
+3. Click on the ***More*** button at the top of the page and click the ***Create Custom Image*** button.
+  ![Creating a custom image](images/L6_MoreButton.png)
+
+4. Be sure you have the ***Demo*** compartment selected. Custom image are specific to a compartment. Name the image ***Web-Server_Image*** and press the ***Create Custom Image*** button.
+  ![Creating a custom image](images/L6_CustomImageDialog.png)
+
+5. This will close the dialog and you will see from the orange status icon in the upper left corner of the instance page that the image is being created. It will take several minutes for this to complete.
+  ![Creating a custom image](images/L6_CreatingImage.png)
+
+6. When the status icon turns green, your custom image is ready for use. You can see your custom image if you select ***Compute -> Custom Images*** from the main menu.
+  ![Creating a custom image](images/L6_CustomImageList.png)
+
+7. Click on your newly created custom image to view its details.
+  ![Creating a custom image](images/L6_CustomImageDetails.png)
+
+Your custom image is now ready for use!
+
+Custom images are extremely useful. You can create a custom image and then use it to create compute instances in different environments (ie. Dev, Test and Production for example).They help you to guarantee the integrity of each compute instance you create with it.
+
+[Top](#table-of-contents)
+
+## Lab 7 - Using Custom Images
+
+Now that we have a custom image created, let's use it to create a new compute instance that is a duplicate of our first web server. In our next and final lab, we will then create a load balancer to balance incoming web traffic between the two web servers.
+
+1. Using the main menu, select **Compute -> Instances** and click **Create Instance**.
+
+2. The Create Compute Instance wizard will launch. Set the name of the server to *Web-Server2*. Click on the ***Change Image*** button.
+  ![Create the instance](images/L7_CreateInstance1.png)
+
+3. A list of images will appear. Click on the ***Custom Images*** tab.
+  ![Select the Custom images tab](images/L7_CreateInstance2.png)
+
+4. Check the checkbox for the ***Web-Server_Image*** and press the ***Select Image*** button.
+  ![Select your custom image](images/L7_CreateInstance3.png)
+
+5. Use the default Availability Domain. Scroll down and select the ***DO NOT ASSIGN A PUBLIC IP ADDRESS*** radio button.
+  ![Create step 2](images/L7_CreateInstance4.png)
+  ***NOTE:*** *You ***DO NOT*** need a public IP address for this instance because it is already configured. so that you can SSH into the running instance later in this lab.*
+
+6. Scroll down to the SSH area of the page. Choose the *oci_testdrive.pub* SSH key that you created earlier in this lab. Press the ***Create*** button to create your instance.
+  ![Create step 2](images/L7_CreateInstance5.png)
+
+7. Wait for the new instance to complete the provisioning process. Note that you cannt point your web server to this instance to test it because it does not have a public IP address! That's ok though. In the next and final lab we will create a load balancer that ***DOES*** have a public IP address and it will load balance across the two web servers that you created.
+
+[Top](#table-of-contents)
+
+## Lab 8 - Creating a Load Balancer
+
