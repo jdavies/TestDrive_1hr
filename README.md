@@ -16,7 +16,6 @@ The instructions for the 1 hour test drive video that you saw during the webinar
   - [Lab 3: Creating Compartments](#lab-3-creating-compartments)
     - [Compartments Overview](#compartments-overview)
   - [Lab 4 - Creating a Virtual Cloud Network](#lab-4---creating-a-virtual-cloud-network)
-    - [Summary](#summary)
   - [Lab 5 - Compute Instances](#lab-5---compute-instances)
     - [Troubleshooting](#troubleshooting)
   - [Lab 6 - Custom Images](#lab-6---custom-images)
@@ -27,7 +26,7 @@ The instructions for the 1 hour test drive video that you saw during the webinar
 
 In this set of labs you will learn how to use Oracle Cloud Infrastructure (OCI) to create a redundant, load balanced set of web servers. As a part of this overarching goal, you will learn how to create and configure a virtual cloud network, routing rules, compute instances and more. By the end of this series of labs you will have had experience building a real world solution that is scalable and reliable. This lab aloe will not grant you mastery of OCI and its technologies, but it will take you from "zero to 60" very quickly.
 
-This set of abs may appear daunting at first, due to their sheer number and size. However, it appears long because of all of the screenshots and detailed step-by-stp instructions. Remember, I was able to demnstrate all of this in an hour!
+This set of abs may appear daunting at first, due to their sheer number and size. However, it appears long because of all of the screenshots and detailed step-by-stp instructions. Remember, I was able to demonstrate all of this in an hour!
 
 [Top](#table-of-contents)
 
@@ -207,7 +206,7 @@ To create a VCN on Oracle Cloud Infrastructure:
 
 7. Once you see that the creation is complete (see previous screenshot), click on the **View Virtual Cloud Network** button.
 
-### Summary
+***Summary***
 
 This VCN will contain all of the other assets that you will create during this set of labs. In real-world situations, you may well create multiple VCNs based on their need for access (which ports to open) and who can access them. Both of these concepts are covered in the next lab [Lab 5 - Compute Instances](##lab-5---compute-instances)
 
@@ -393,3 +392,43 @@ Now that we have a custom image created, let's use it to create a new compute in
 
 ## Lab 8 - Creating a Load Balancer
 
+For our final lab, we will create a load balancer and configure it to balancer web traffic over our two web server instances. Along the e, you will discover some core concepts behind load balancer configuration.
+
+The Oracle Cloud Infrastructure Load Balancing service provides automated traffic distribution from one entry point to multiple servers reachable from your virtual cloud network (VCN). The service offers a load balancer with your choice of a public or private IP address, and provisioned bandwidth.
+
+A load balancer improves resource utilization, facilitates scaling, and helps ensure high availability. You can configure multiple load balancing policies and application-specific health checks to ensure that the load balancer directs traffic only to healthy instances. The load balancer can reduce your maintenance window by draining traffic from an unhealthy application server before you remove it from service for maintenance.
+
+The Load Balancing service enables you to create a public or private load balancer within your VCN. A public load balancer has a public IP address that is accessible from the internet. A private load balancer has an IP address from the hosting subnet, which is visible only within your VCN. You can configure multiple listeners for an IP address to load balance transport Layer 4 and Layer 7 (TCP and HTTP) traffic. Both public and private load balancers can route data traffic to any backend server that is reachable from the VCN.
+
+The following provides an overview of a simple Public Load Balancer:
+
+![Public Load Balancer Architecture](images/L8_Public-Load-Balancer.png)
+
+1. In the Console, click **Menu** --> **Networking** --> **Load Balancers**. Click the **Create Load Balancer** button and enter the following parameters:
+
+   - **Name:** *LB-Web-Servers*
+   - **Visibility Type:** *Public Load Balancer*
+   - **Maximum Total Bandwidth:** *100Mbps*
+   - **Virtual Cloud Network:** *OCI-HOL-VCN*
+   - **Subnet:** *Public Subnbet-OCI-HOL-VCN(regional)*
+   - Press the **Next Step** button
+  ![Create a lod balancer](images/L8_CreateLB1.png)
+
+2. For the  **Load Balancing Policy:** field, select *Weighted Round Robin* and press the **Add  Backends** button
+   ![Select eighted Round Robin for the policy](images/L8_CreateLB2.png)
+
+3. Select both web servers and add them. Press the **Add Selected Backends** button.
+   ![Select the backend servers to use with the load balancer](images/L8_CreateLB3.png)
+
+4. Press the ***Next*** button.
+  
+5. Name the listener ***Web-Server-Listener*** and select the ***HTTP*** option for traffic.mClick the ***Submit*** Button to provision the load balancer.
+  ![Create the listener](images/L8_CreateLB4.png)
+    **Note:** When a load balancer is created, you're assigned a public IP address to which you route all incoming traffic. The IP address is highly available across ADs.
+
+6. Wait for the load balancer to finish the provisioning process (it's pretty quick). The Load Balancer Details page will update and show a public IP for the load balancer. This is the IP address you will use in your web browser. When the load balancer receives the web requests, it sends them off to the appropriate computer instance.
+
+7. Now you can test the load balancer by pointing your browser to `http://<Load Balancer IP Address>`. You should see a we page like the following:
+  ![Load Balancer test page](images/L8_Test1.png)
+
+**Success!** You've accomplished quite a lot in this set of labs. You've created a virtual cloud network, generated yur own SSH keys and used them to connect to the compute instance. You then configured that compute instance with a custom software load (the web server) needed. You then created an image of that compute instance and used that image to quickly and reliably create an exact duplicate of that compute instance to allow you to horizontally scale your web server. And finally, you create a load balancer to balance web traffic across your backend web servers!
